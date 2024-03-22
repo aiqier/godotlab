@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://sm5fungar7tm"]
+
+[ext_resource type="Texture2D" uid="uid://inxbcgq6c50p" path="res://Art/rpg-pack/props n decorations/generic-rpg-trasure.png" id="1_7rvly"]
+[ext_resource type="Script" path="res://objects/chest.gd" id="2_715rl"]
+
+[sub_resource type="Animation" id="Animation_wwmsm"]
+resource_name = "close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_sibhh"]
+resource_name = "open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_27vub"]
+_data = {
+"close": SubResource("Animation_wwmsm"),
+"open": SubResource("Animation_sibhh")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_blbjm"]
+animation = &"close"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ykt78"]
+animation = &"open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_66htt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_da7jg"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nm2iq"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_oaxsg"]
+states/close/node = SubResource("AnimationNodeAnimation_blbjm")
+states/close/position = Vector2(439, 89)
+states/open/node = SubResource("AnimationNodeAnimation_ykt78")
+states/open/position = Vector2(583, 93)
+transitions = ["Start", "close", SubResource("AnimationNodeStateMachineTransition_66htt"), "close", "open", SubResource("AnimationNodeStateMachineTransition_da7jg"), "open", "close", SubResource("AnimationNodeStateMachineTransition_nm2iq")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4g66"]
+size = Vector2(19, 11)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ajni"]
+radius = 19.105
+
+[node name="Chest" type="StaticBody2D"]
+script = ExtResource("2_715rl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7rvly")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_27vub")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_27vub")
+}
+tree_root = SubResource("AnimationNodeStateMachine_oaxsg")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 4.5)
+shape = SubResource("RectangleShape2D_l4g66")
+
+[node name="NearChara2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NearChara2D"]
+shape = SubResource("CircleShape2D_8ajni")
+
+[connection signal="area_entered" from="NearChara2D" to="." method="_on_near_chara_2d_area_entered"]
+[connection signal="area_exited" from="NearChara2D" to="." method="_on_near_chara_2d_area_exited"]

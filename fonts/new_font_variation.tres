@@ -1,0 +1,10 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://db5qbxyacuqx8"]
+
+[ext_resource type="FontFile" uid="uid://bfvr61inajg8d" path="res://fonts/simsun.ttc" id="1_4mcgx"]
+
+[resource]
+fallbacks = Array[Font]([null])
+base_font = ExtResource("1_4mcgx")
+opentype_features = {
+1667329140: 0
+}

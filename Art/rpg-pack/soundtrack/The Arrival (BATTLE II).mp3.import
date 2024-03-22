@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dj6hjyslmxcan"
+path="res://.godot/imported/The Arrival (BATTLE II).mp3-220058242a8dabaf2c69be5245286765.mp3str"
+
+[deps]
+
+source_file="res://Art/rpg-pack/soundtrack/The Arrival (BATTLE II).mp3"
+dest_files=["res://.godot/imported/The Arrival (BATTLE II).mp3-220058242a8dabaf2c69be5245286765.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
